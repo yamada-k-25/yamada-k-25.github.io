@@ -53,6 +53,12 @@
         loader.load('./models/collada/tsukuba3gaku/tsukuba3gaku.dae', collada => {
           // 読み込み後に3D空間に追加
           const model = collada.scene;
+          model.traverse( function ( child ) {
+            if ( child instanceof THREE.SkinnedMesh ) {
+              var animation = new THREE.Animation( child, child.geometry.animation );
+              animation.play();
+              }
+          });
           scene.add(model);
         });
 
